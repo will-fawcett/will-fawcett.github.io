@@ -9,7 +9,8 @@ name: Will Fawcett
 description: Particle physicist
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: https://www.hep.phy.cam.ac.uk/~wfawcett/images/scalf.jpg
+#avatar: https://www.hep.phy.cam.ac.uk/~wfawcett/images/scalf.jpg
+avatar: https://avatars2.githubusercontent.com/u/18595775?s=400&u=0bc34f861bea6b06abd6f25875250be8b16530f5&v=4
 
 #
 # Flags below are optional
@@ -18,15 +19,15 @@ avatar: https://www.hep.phy.cam.ac.uk/~wfawcett/images/scalf.jpg
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble:
-  email:
+  email: wjf29@cam.ac.uk
   facebook:
   flickr:
-  github: barryclark/jekyll-now
+  github: will-fawcett
   instagram:
-  linkedin:
+  linkedin: william-fawcett
   pinterest:
   rss: # just type anything here for a working RSS icon
-  twitter: jekyllrb
+  twitter: 
   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
   youtube: # channel/<your_long_string> or user/<user-name>
   googleplus: # anything in your profile username that comes after plus.google.com/
