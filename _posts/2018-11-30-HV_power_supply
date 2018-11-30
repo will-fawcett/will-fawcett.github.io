@@ -1,0 +1,12 @@
+---
+layout: post
+mathjax: true
+title: Keithley 2410 with NI-VISA and a CentOS7 machine
+---
+
+Getting this to work was really hard to do. So hard that I decided to start this blog in order to help others not have to go through this painful process. Before we start, these are the relevant specs of my machine.
+```
+CentOS Linux (3.10.0-862.11.6.el7.x86_64) 7 (Core)
+ROOT 6.14/02
+```
+Untill recently, National Instruments didn't properly support the installation of their software for linux machines. Fortunately of October 2018 they 
