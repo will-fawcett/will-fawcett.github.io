@@ -38,12 +38,31 @@ The installation will probably faile (this is expected). Some instructions are p
 ```
 cd nivisa
 sudo ./INSTALL
-```mxdaq base, install
+```
 This may also fail, and you have to edit `nikal.c`
 
 edit `/usr/local/natinst/nikal/src/nikal/nikal.c`
 After line 2015 add line #define ... (see twiki)
 add "NULL" to the end of the function arguments at line 3700
 
-get NI 488.2 from
-https://download.ni.com/support/softlib/gpib/linux/15.1/patch/NI4882-15.1.1f0.iso 
+also remove the two "if" lines from line XYZT
+
+There may be a second copy of nikal somewhere that you also have to modify
+I have attached a corrected copy of nikal.c HERE TODO
+
+Download and install NI 488.2:
+```
+wget https://download.ni.com/support/softlib/gpib/linux/15.1/patch/NI4882-15.1.1f0.iso # may take a few mins
+mkdir ni4882_base
+sudo mount -o loop NI4882-15.1.1f0.iso ni4882_base
+cd ni4882_base
+sudo ./INSTALL
+```
+If you have ever install a different version of NI-VISA, you may have to remove some of the components which clash with the newly installed version.
+
+Now run `updateNIDrivers` and try launching ITSDAQ.
+
+This may work for you, however at this point it didn't. I was unable to locate any of the devices I had plugged into my machine, including USB devices (such as the Low Voltate power supply)
+
+If this doesn't work you may have other problems
+Try downloading labview
