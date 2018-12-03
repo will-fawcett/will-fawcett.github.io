@@ -18,14 +18,28 @@ Launch NI Visa interactive control from the command line:
 (a tutorial can be found https://www.ni.com/tutorial/2816/en/ )
 (for reference you can also investigate NI devices with `visaconf`
 
+-----------
+Removal of ni-visa 18 (after installation with yum) is easy, as you can just use
+```
+sudo yum remove ni-*
+```
+And make sure that all the listed packages are actually from ni-visa
 
 -----------
 Unfortunately, NI-VISA 18 (and 17) both don't work with ITSDAQ. Which is an absolute travesty since v18 is properly managed in an rpm instead of stupid install scripts provided for the earlier versions of NI's linux software.
 
-mount mxdaq base, install
-will fail, cd into the nivisa directory
-intsall
-restart
+```
+mkdir daqmx_base
+sudo mount -o loop nidaqmxbase-15.0.0.iso daqmx_base/
+cd daqmx_base/
+sudo ./INSTALL
+```
+The installation will probably faile (this is expected). Some instructions are printed about installing nivisa, which will be in a directory inside the `daqmx_base` that you created in the last step:
+```
+cd nivisa
+sudo ./INSTALL
+```mxdaq base, install
+This may also fail, and you have to edit `nikal.c`
 
 edit `/usr/local/natinst/nikal/src/nikal/nikal.c`
 After line 2015 add line #define ... (see twiki)
