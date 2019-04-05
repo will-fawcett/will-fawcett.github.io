@@ -1,6 +1,6 @@
 ---
 layout: post
-title: You're up and running!
+title: Hello!
 ---
 
 I'm currently building my blog, new posts to come soon!
