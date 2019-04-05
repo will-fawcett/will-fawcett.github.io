@@ -1,6 +1,6 @@
 ---
 layout: post
-title: You're up and running!
+title: Building an executable, compiling and linking
 ---
 
 This a collection of my recent learnings on how a to compile c++ code and then link it together, as well as creating a library. I'm writing this mainly to consolidate my own knowledge of this subject, and have a record for the future. 
