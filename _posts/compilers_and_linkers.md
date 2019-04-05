@@ -17,8 +17,7 @@ main.cpp
 include/MyObj.h
 src/MyObj.cpp
 ```
-
-We want to compile and link these together to produce a single executable. Note that the header file need only contain function (or class) declarations, with the definitions in the corresponding cpp file.
+Note the code for these three files are included at the bottom of this page. We want to compile and link these together to produce a single executable. Note that the header file need only contain function (or class) declarations, with the definitions in the corresponding cpp file.
 
 To compile _only_ use `g++ -c`, we could try just including the path to the cpp file as follows:
 ```
@@ -110,3 +109,48 @@ Finally, we have:
 $ ld -o prog.exe main.o -lwill -lstdc++ `root-config --libs | sed 's/.stdlib=lib.../ /g' `  -lc++  -L.
 ```
 Which produces the executable `prog.exe`. 
+
+## Code examples
+main.cpp:
+```cpp
+#include<iostream>
+#include "include/MyObj.h"
+#include "TH1D.h"
+
+int main(){
+  MyObj obj1(5, 6);
+
+  std::cout << "hello world!" << std::endl;
+  std::cout << "sum: " << obj1.sum() << std::endl;
+
+  TH1D* hist = new TH1D("hist", "hist", 100, 0, 100);
+  std::cout << hist->GetName() << std::endl;
+}
+```
+
+src/MyObj.cpp
+```cpp
+#include "MyObj.h"
+
+double MyObj::sum(){
+  return x+y;
+}
+```
+
+include/MyObj.h
+```cpp
+#ifndef MYOBJ_H
+#define MYOBJ_H
+
+class MyObj{
+  private:
+    double x, y;
+
+  public:
+    MyObj(double xin, double yin) : x(xin), y(yin) {}
+    double sum();
+};
+
+#endif // MYOBJ_H
+```
+
