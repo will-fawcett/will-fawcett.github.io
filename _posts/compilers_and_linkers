@@ -1,0 +1,21 @@
+Here is a collection of my recent learnings on how a to compile c++ code and then link it together.
+I'm writing this mainly to consolidate my own knowledge of this subject, and have a record for the future. 
+
+In creating an executable there are actually (at least) two steps, compiling and linking. 
+In many cases, compiling and linking can carried out in a single step and so one can easily be fooled into thinking the _are_ the same step, but in reality one of these has been hidden from you. 
+
+If you code is simple enough, one would be able to do the following:
+g++ -o program_name.exe simple_main.cpp 
+where simple_main.cpp would be a very simple program, perhaps not including any headers. In this case both compiling and linking are done in a single step.
+
+For more complex programs, where you have to include multiple libraries, or even to create your own library which you then use you may need, or want to, perform the compilation and linking separately.
+
+As a simple example, let's say we have three pieces of code:
+main.cpp
+include/MyObj.h
+src/MyObj.cpp
+
+We want to compile and link these together to produce a single executable. 
+Note that the header file need only contain function (or class) declarations, not definitions. 
+
+
