@@ -1,4 +1,7 @@
-# Building an executable: compiling and linking
+---
+layout: post
+title: Building an executable: compiling and linking
+---
 
 Here is a collection of my recent learnings on how a to compile c++ code and then link it together, as well as creating a library. I'm writing this mainly to consolidate my own knowledge of this subject, and have a record for the future. 
 
@@ -113,7 +116,7 @@ Which produces the executable `prog.exe`.
 ## Code examples
 main.cpp:
 ```cpp
-#include<iostream>
+#include <iostream>
 #include "include/MyObj.h"
 #include "TH1D.h"
 
