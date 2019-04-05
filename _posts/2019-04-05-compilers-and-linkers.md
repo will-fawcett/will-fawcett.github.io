@@ -22,20 +22,26 @@ src/MyObj.cpp
 ```
 Note the code for these three files are included at the bottom of this page. We want to compile and link these together to produce a single executable. Note that the header file need only contain function (or class) declarations, with the definitions in the corresponding cpp file.
 
-To compile _only_ use `g++ -c`, we could try just including the path to the cpp file as follows:
+To compile _only_ (and not link) use `g++ -c`. We could try just including the path to the cpp file as follows:
 ```
 g++ -c ../src/MyObj.cpp -o MyObj.o
-But this results in an error, 
+```
+But this results in an error:
+```
 src/MyObj.cpp:2:10: fatal error: 'MyObj.h' file not found
 #include "MyObj.h"
 ```
 
-We need to tell `g++` where to look for the "include", `g++ --help` reveals
+We need to tell `g++` where to look for the "#include", how does the compiler know where to look for this header file? `g++ --help` reveals
  ``` -I <dir>                Add directory to include search path ```
-So we need to add the directory path to the header file so it can be found by the "include" statement
-```g++ -c src/MyObj.cpp -o MyObj.o -I include/```
+So we need to add the directory path to the header file so it can be found by the "#include" statement
+```
+g++ -c src/MyObj.cpp -o MyObj.o -I include/
+```
 
-This successfully creates the `MyObj.o` file. This is the first "compilation unit", and we can create many such object files and then _link_ them together with the linker. Note that the linker itself doesn't know anything about programming languages or care about them (at least in principle), and one could link together the `.o` files compiled from different languages. We can now also inspect the `MyObj.o` file with the `nm` command, which displays the "symbol table".  The symbol table contains several main blocks, one of these has the symbols that are defined, and another that has the symbols that are undefined, the other blocks may contain some lookup table that allows for faster finding of these symbols. The "defined" symbols are those that correspond to function, or pieces of code that were actually defined in the `MyObj*` files, whereas undefined symbols could refer to functions that are defined in other pieces of code. 
+This successfully creates the `MyObj.o` file. This is the first "compilation unit", and we can create many such object files and then _link_ them together with the linker. Note that the linker itself doesn't know anything about programming languages or care about them (at least in principle), and one could link together the `.o` files compiled from different languages. 
+
+We may also inspect the `MyObj.o` file with the `nm` command, which displays the "symbol table".  The symbol table contains several main blocks, one of these has the symbols that are defined, and another that has the symbols that are undefined, the other blocks perform various other functions, including some lookup table that allows for faster finding of these symbols. The "defined" symbols are those that correspond to function, or pieces of code that were actually defined in the `MyObj*` files, whereas "undefined" symbols could refer to functions that are defined in other pieces of code. 
 In this example there are only defined symbols, and using `nm` yields:
 ```
 $ nm MyObj.o
@@ -48,21 +54,23 @@ $ nm -C MyObj.o
 ```
 and we see we have the original `sum` function. The `T` here indicates that this is a defined symbol. 
 
-Now let's try to compile the `main.cpp` file. This uses the `MyObj` class, as well as an external library `TH1D.h`. Trying to compile main on it's own won't work:
+Now let's try to compile the `main.cpp` file. This uses the `MyObj` class, as well as a header from an external library, `TH1D.h`. Trying to compile main on it's own won't work:
 ```
 $ g++ -c main.cpp -o main.o
 main.cpp:4:10: fatal error: 'TH1D.h' file not found
 #include "TH1D.h"
 ```
 Again, this is because we need to tell `g++` where to find the `TH1D.h` file. Note that `g++` didn't complain about trying to find `#include "include/MyObj.h"` as the path to that file _happens_ to be `include/MyObj.h` (if we had moved `main.cpp` somewhere else, we would have had to include the `-I` flag to the `MyObj.h` as well). Normally, to get the `TH1D.h` we would simply add the `-I` with the path to the header, like this:
- ```g++ -c main.cpp -o main.o -I/Users/wfawcett/root/build/include```
- however, this throws a bunch of errors, since `TH1D.h` is part of ROOT, and that needs some extra compilation commands. These extra commands can be passed using the `root-config --cflags` command as follows:
+ ```
+ g++ -c main.cpp -o main.o -I/Users/wfawcett/root/build/include
+ ```
+ however, this throws a bunch of errors, since `TH1D.h` is part of ROOT, and that needs some extra compilation commands. (If you are readning this and want to install ROOT, see [here](https://root.cern.ch/building-root).) These extra commands can be passed using the `root-config --cflags` command as follows:
  ``` 
  g++ -c main.cpp -o main.o `root-config --cflags`
  ```
  `root-config --cflags` actually returns the following (for me):
  ```-pthread -stdlib=libc++ -std=c++11 -m64 -I/Users/wfawcett/root/build/include```
- and we see the relevant `-I` path, as well as some other relevant flags needed for ROOT. With the above `g++` command, `main.cpp` compiles and we are left with `main.o`. `nm -C main.o` now reveals all the symbols inside the compiled file. 
+ and we see the relevant `-I` path, as well as some other relevant flags needed for ROOT. With the above `g++` command, `main.cpp` compiles and we are left with `main.o`, which is what we wanted. `nm -C main.o` now reveals all the symbols inside the compiled file. 
 
 ## Making a program: the linker
 We have now created two _compilation units_, `main.o` and `MyObj.o`, two binary files that can be understood by your computer, but we haven't yet made a program that we can actually run! To do this we need to use the _linker_. The linker command is `ld`. Naively, we might expect the following to work:
