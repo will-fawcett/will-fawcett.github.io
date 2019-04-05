@@ -73,12 +73,12 @@ Again, this is because we need to tell `g++` where to find the `TH1D.h` file. No
  and we see the relevant `-I` path, as well as some other relevant flags needed for ROOT. With the above `g++` command, `main.cpp` compiles and we are left with `main.o`, which is what we wanted. `nm -C main.o` now reveals all the symbols inside the compiled file. 
 
 ## Making a program: the linker
-We have now created two _compilation units_, `main.o` and `MyObj.o`, two binary files that can be understood by your computer, but we haven't yet made a program that we can actually run! To do this we need to use the _linker_. The linker command is `ld`. Naively, we might expect the following to work:
+We have now created two _compilation units_, `main.o` and `MyObj.o`, two binary files that can be understood by your computer, but we haven't yet made a program that we can actually run! To do this we need to use the _linker_. The linker command is `ld` (now `LD_LIBRARY_PATH` makes sense...) . Naively, we might expect the following to work:
 ```
-$ ld -o prog main.o MyObj.o
+$ ld -o prog.exe main.o MyObj.o
 ```
 but, this throws a large number of warnings. Importantly, these warnings start with ```Undefined symbols for architecture x86_64:```, which means this is a linker problem (you may see this warning when you try to compile and link something at the same time). Remember that the linker doesn't know anything about c++. In our main.cpp, we used the library `#include <iostream>` , but we haven't told our code anything about where this library might be. So, let's try to add the c++ libraries. On my mac, these libraries happen to be located here `/usr/lib/libc++.dylib` (although you don't need to know the path). We can pass this library to `ld` by adding the `-lc++` flag. This is a convention for adding libraries that can work across different machines, in this specific case, the `-l` is converted into `lib`.  However, running
-```ld -o prog main.o MyObj.o -lc++``` 
+```ld -o prog.exe main.o MyObj.o -lc++``` 
 still isn't enough as we need the remainder of the ROOT libraries. As an aside, one could find out what these are by using `nm` to search through all libraries on your machine and then match the symbol to what symbols are missing (a good approach if you don't know what libraries you might need), but the ROOT software provides a function to tell you what these libs should be: 
 ```
 $ root-config --libs
@@ -86,7 +86,7 @@ $ root-config --libs
 ``` 
 This command _almost_ tells you what you need to append to your `ld` command, however the ROOT developers have been a little naughty and assumed that nobody would ever use the linker step on it's own (perhaps fair) and provided `-stdlib=libc++` which is actually something one wold pass to `g++` which would then pass `libc++` to `ld`.  What we actually want to pass is `-lc++`, which we already have. One can add all of these ROOT libraries as follows:
 ```
-ld -o prog main.o MyObj.o -lstdc++ `root-config --libs | sed 's/.stdlib=lib.../ /g' `  -lc++
+ld -o prog.exe main.o MyObj.o -lstdc++ `root-config --libs | sed 's/.stdlib=lib.../ /g' `  -lc++
 ```
 (where I have included `-lc++` again for clarity, included the `-lstdc++` library, and used `sed` to remove the naughty `-stdlib=lib` from the output of `root-config --libs`). This command is what _finally_ produces the output executable, `prog.exe` that can be run from the command line!
  
