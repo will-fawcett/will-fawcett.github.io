@@ -1,0 +1,68 @@
+---
+layout: post
+mathjax: true
+title: Keithley 2410 with NI-VISA and a CentOS7 machine
+---
+
+Getting this to work was really hard to do. So hard that I decided to start this blog in order to help others not have to go through this painful process. Before we start, these are the relevant specs of my machine.
+```
+CentOS Linux (3.10.0-862.11.6.el7.x86_64) 7 (Core)
+ROOT 6.14/02
+```
+Until recently, National Instruments didn't properly support the installation of their software for linux machines. Fortunately of October 2018 they provide a proper RPM for linux! Their documentation can be found [here:](http://www.ni.com/product-documentation/54754/en/)
+
+but I will try to give a more 
+
+Launch NI Visa interactive control from the command line:
+`NIvisaic`
+(a tutorial can be found https://www.ni.com/tutorial/2816/en/ )
+(for reference you can also investigate NI devices with `visaconf`
+
+-----------
+Removal of ni-visa 18 (after installation with yum) is easy, as you can just use
+```
+sudo yum remove ni-*
+```
+And make sure that all the listed packages are actually from ni-visa
+
+-----------
+Unfortunately, NI-VISA 18 (and 17) both don't work with ITSDAQ. Which is an absolute travesty since v18 is properly managed in an rpm instead of stupid install scripts provided for the earlier versions of NI's linux software.
+
+```
+mkdir daqmx_base
+sudo mount -o loop nidaqmxbase-15.0.0.iso daqmx_base/
+cd daqmx_base/
+sudo ./INSTALL
+```
+The installation will probably faile (this is expected). Some instructions are printed about installing nivisa, which will be in a directory inside the `daqmx_base` that you created in the last step:
+```
+cd nivisa
+sudo ./INSTALL
+```
+This may also fail, and you have to edit `nikal.c`
+
+edit `/usr/local/natinst/nikal/src/nikal/nikal.c`
+After line 2015 add line #define ... (see twiki)
+add "NULL" to the end of the function arguments at line 3700
+
+also remove the two "if" lines from line XYZT
+
+There may be a second copy of nikal somewhere that you also have to modify
+I have attached a corrected copy of nikal.c HERE TODO
+
+Download and install NI 488.2:
+```
+wget https://download.ni.com/support/softlib/gpib/linux/15.1/patch/NI4882-15.1.1f0.iso # may take a few mins
+mkdir ni4882_base
+sudo mount -o loop NI4882-15.1.1f0.iso ni4882_base
+cd ni4882_base
+sudo ./INSTALL
+```
+If you have ever install a different version of NI-VISA, you may have to remove some of the components which clash with the newly installed version.
+
+Now run `updateNIDrivers` and try launching ITSDAQ.
+
+This may work for you, however at this point it didn't. I was unable to locate any of the devices I had plugged into my machine, including USB devices (such as the Low Voltate power supply)
+
+If this doesn't work you may have other problems
+Try downloading labview

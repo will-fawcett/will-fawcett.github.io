@@ -1,0 +1,143 @@
+Module : Link0  Link1  Oddity Chipset DTM SCmode bpm_dr vdac0 vdac1
+           1      1     -1      7     1    0      3     512   512
+	 Select  Vdet  Idet  Vcc  Icc  Vdd  Idd  Vi1  iVi1 Vled0 Iled0 Vled1 Iled1 Vpin Ramp
+	    0    200.  100.  3.5 1000. 4.0  600.  0.  10.    6.   10.    6.   10.   6.   2
+
+		
+HCC 17
+# enable XOFF L1/L2 & DATAIN L1/L2
+# R10 XOFF 0b|R2|100|L2|100|R1|100|L1|100|000|100
+#
+#   R0         R1         R2         R3
+    0x0007fec5 0xE0A18300 0x00000840 0x000ffC00
+#   R4         R5         R6         R7	
+	0x3ff003ff 0x000ffc00 0x3ff003ff 0x000ffc00
+#	R8         R9         R10        R11
+	0x00000000 0x39CE739C 0x00030334 0x01050402
+#	R12        R13        R14        R15
+	0x33333333 0x00755555 0xfff107ff 0xffffffff
+#	R16        R17
+	0x00000000 0x00000000 
+#
+Speed 80
+Taps 21 25 16 20
+#
+# ABC130 direction 0 -> DATA L is output
+# ABC130 direction 1 -> DATA R is output
+#
+# LOOP 2
+# NEAREST TO HCC
+# U1 - DATA/XOFF L bonded to HCC DATA/XOFF 3 aka LEFT2
+#    - disable thru if direction = 1 (end of chain) 
+#
+Chip 16 :  Act. Pri  Comp. T_range Mask_r Edge 1BC Direction DriveL DriveR DriveFC PackEnab
+           1    4    0     14       0      0    0   0         4      4      0       31
+Delay: Delay DelStep VThr VCal CalPol Latency PreL0ID
+       36     3       72   34   0      1       0
+Bias : BVREF BIREF B8REF COMBIAS BIFEED BIPRE LDOD   LDOA
+       13    13    13   16   9   16    0x3ff  0x3ff
+#
+# U2
+#
+Chip 17 :  Act. Pri  Comp. T_range Mask_r Edge 1BC Direction DriveL DriveR DriveFC PackEnab
+           1    3    0     14       0      0    0   0         4      4      0       31
+Delay: Delay DelStep VThr VCal CalPol Latency PreL0ID
+       41     3       72   34   0      1       0
+Bias : BVREF BIREF B8REF COMBIAS BIFEED BIPRE LDOD   LDOA
+       13    13    13   16   9   16    0x3ff 0x3ff
+#
+# U3
+#
+Chip 18 :  Act. Pri  Comp. T_range Mask_r Edge 1BC Direction DriveL DriveR DriveFC PackEnab
+           1    2    0     14       0      0    0   0         4      4      0       31
+Delay: Delay DelStep VThr VCal CalPol Latency PreL0ID
+       35     3       72   34   0      1       0
+Bias : BVREF BIREF B8REF COMBIAS BIFEED BIPRE LDOD   LDOA
+       13    13    13   16   9   16    0x3ff   0x3ff
+#
+# U4
+#
+Chip 19 :  Act. Pri  Comp. T_range Mask_r Edge 1BC Direction DriveL DriveR DriveFC PackEnab
+           1    1    0     14       0      0    0   0         4      4      0       31
+Delay: Delay DelStep VThr VCal CalPol Latency PreL0ID
+       39     3       72   34   0      1       0
+Bias : BVREF BIREF B8REF COMBIAS BIFEED BIPRE LDOD   LDOA
+       13    13    13   16   9   16    0x3ff   0x3ff
+#
+# U5 - DATA/XOFF R bonded to HCC DATA/XOFF 2 aka RIGHT2
+#    - disable thru if direction = 0 (end of chain)
+#
+Chip 20 :  Act. Pri  Comp. T_range Mask_r Edge 1BC Direction DriveL DriveR DriveFC PackEnab
+           1    0    0     14       0      0    0   0         4      4      0       15
+Delay: Delay DelStep VThr VCal CalPol Latency PreL0ID
+       41     3       72   34   0      1       0
+Bias : BVREF BIREF B8REF COMBIAS BIFEED BIPRE LDOD   LDOA
+       13    13    13   16   9   16    0x3ff 0x3ff
+#
+# LOOP 1
+# U6 - DATA/XOFF L bonded to HCC DATA/XOFF 1 aka LEFT1
+#    - disable thru if direction = 1 (end of chain)
+#
+Chip 21 :  Act. Pri  Comp. T_range Mask_r Edge 1BC Direction DriveL DriveR DriveFC PackEnab
+           1    4    0     14       0      0    0   0         4      4      0       31
+Delay: Delay DelStep VThr VCal CalPol Latency PreL0ID
+       35     3       72   34   0      1       0
+Bias : BVREF BIREF B8REF COMBIAS BIFEED BIPRE LDOD   LDOA
+       13    13    13   16   9   16    0x3ff   0x3ff
+#
+# U7
+#
+Chip 22 :  Act. Pri  Comp. T_range Mask_r Edge 1BC Direction DriveL DriveR DriveFC PackEnab
+           1    3    0     14       0      0    0   0         4      4      0       31
+Delay: Delay DelStep VThr VCal CalPol Latency PreL0ID
+       40     3       72   34   0      1       0
+Bias : BVREF BIREF B8REF COMBIAS BIFEED BIPRE LDOD   LDOA
+       13    13    13   16   9   16    0x3ff   0x3ff
+#
+# U8
+#
+Chip 23 :  Act. Pri  Comp. T_range Mask_r Edge 1BC Direction DriveL DriveR DriveFC PackEnab
+           1    2    0     14       0      0    0   0         4      4      0       31
+Delay: Delay DelStep VThr VCal CalPol Latency PreL0ID
+       43     3       72   34   0      1       0
+Bias : BVREF BIREF B8REF COMBIAS BIFEED BIPRE LDOD   LDOA
+       13    13    13   16   9   16    0x3ff   0x3ff
+#
+# U9
+#
+Chip 24 :  Act. Pri  Comp. T_range Mask_r Edge 1BC Direction DriveL DriveR DriveFC PackEnab
+           1    1    0     14       0      0    0   0         4      4      0       31
+Delay: Delay DelStep VThr VCal CalPol Latency PreL0ID
+       36     3       72   34   0      1       0
+Bias : BVREF BIREF B8REF COMBIAS BIFEED BIPRE LDOD   LDOA
+       13    13    13   16   9   16    0x3ff    0x3ff
+#
+# FURTHEST FROM HCC
+# U10 - DATA/XOFF R bonded to HCC DATA/XOFF 0 aka RIGHT1
+#     - disable thru if direction = 0 (end of chain)
+# 
+Chip 25 :  Act. Pri  Comp. T_range Mask_r Edge 1BC Direction DriveL DriveR DriveFC PackEnab
+           1    0    0     14       0      0    0   0         4      4      0       15
+Delay: Delay DelStep VThr VCal CalPol Latency PreL0ID
+       35     3       72   34   0      1       0
+Bias : BVREF BIREF B8REF COMBIAS BIFEED BIPRE LDOD   LDOA
+       13    13    13   16   9   16    0x3ff   0x3ff
+
+
+### For powerboard: LV Supply: 11V, limited to 700mA.
+#     port address
+AMAC1 3    0
+#   R40        R44        R48        R52
+    0x030006ea 0x73007b00 0x00000000 0x00000000
+#   R56        R60        R64        R68
+    0x00000000 0x00000000 0xffff0000 0xffffffff
+#   R72        R76        R80        R84
+    0x003fffff 0x00000000 0x00000000 0xffffffff
+#   R88        R92        R96        R100
+    0xffffffff 0x0000003f 0x00000000 0xffff0000
+#   R104       R108       R112       R116
+    0xffffffff 0x003fffff 0x00000000 0x00000000
+#   R120       R124       R128       R132
+    0xffffffff 0xffffffff 0x0000003f 0x00000000
+#   R136
+    0xffff0000

@@ -1,18 +1,233 @@
----
-layout: default
----
+<!DOCTYPE HTML>
+<!--
+	Spatial by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+  Edited by William Fawcett
+-->
+<html>
+	<head>
+		<title>William Fawcett - Home</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="landing">
 
-<div class="posts">
-  {% for post in site.posts %}
-    <article class="post">
+		<!-- Header -->
+			<header id="header" class="alt">
+				<h1><strong><a href="index.html"></a></strong> </h1>
+				<nav id="nav">
+					<ul>
+            <!--<li><a href="index.html">Home</a></li>-->
+            <!--<li><a href="generic.html">Generic</a></li>-->
+            <!--<li><a href="elements.html">Elements</a></li>-->
+					</ul>
+				</nav>
+			</header>
 
-      <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
-      <div class="entry">
-        {{ post.excerpt }}
-      </div>
+		<!-- Banner -->
+			<section id="banner">
+				<h2>William Fawcett</h2>
+				<p>Research associate in Particle Physics<br /> University of Cambridge</p>
+        <!--<ul class="actions">-->
+        <!--<li><a href="#" class="button special big">Get Started</a></li>-->
+        <!--</ul>-->
+			</section>
 
-      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
-    </article>
-  {% endfor %}
-</div>
+			<!-- One, About -->
+				<section id="one" class="wrapper style1">
+					<div class="container 75%">
+						<div class="row 200%">
+							<div class="6u 12u$(medium)">
+								<header class="major">
+                  <h2>About</h2>
+                  <div class="11u"><span class="image fit"><img src="images/scalf.jpg" style="max-width: 300px" alt=""></span></div>
+                  <!--<p>Perspiciatis doloremque recusandae dolor</p>-->
+								</header>
+							</div>
+							<div class="6u$ 12u$(medium)">
+                <p>I am a research associate in particle physics at the University of Cambridge. My research focuses on searching for new physics, primarily Supersymmetry, using data collected by the ATLAS experiment at the CERN Large Hadron Collider.  In addition, I contribute to the ATLAS ITk upgrade project. I am part of the <a href="https://www.hep.phy.cam.ac.uk/atlas/">Cambridge ATLAS group</a>.
+
+
+                <p> I have a strong interest in the application of machine learning techniques, which have the potential to assist in discoveries of new fundimental physics. 
+                This lead me to take part in the 2019 <a href="https://frontierdevelopmentlab.org/">NASA Frontier Development Lab</a>, where I am now a fellow. 
+                The Frontier Development Lab aims to bring together researchers to apply machine learning techniques to some of the toughest problems in the space sciences.
+
+                <p>Before coming to Cambridge, I completed my doctorate in particle physics at the University of Oxford under the supervison of 
+                <a href=http://www-pnp.physics.ox.ac.uk/~barra/">Prof. Alan Barr.</a></p>
+							</div>
+						</div>
+					</div>
+				</section>
+
+			<!-- Two, Research -->
+        <section id="publications" class="wrapper style2">
+          <div class="container" style="max-width: 1000px; line-height: 140%;">
+
+            <header class="major special">
+              <h2>Publications</h2>
+              <p>All the links you could want</p>
+            </header>
+
+            <!-- 2018 FCC note -->
+            <p id=Fawcett2018FccTracker"></p>
+            <h4> 
+              A self-seeded track trigger for the FCC-hh 
+              <a href="https://cds.cern.ch/record/2645273"><span class="image right"<img src=images/link-to-here.png title="Link to this paper" alt="Link to this paper" style="max-width:15px"></span></a>
+            </h4>
+            <a href=https://cds.cern.ch/record/2645273 target="_blank">
+              <span class="image left">
+                <img src=images/fcc_1.png title="FCC-hh tracker" style="max-width: 160px">
+              </span>
+            </a>
+            A study for a novel design of a tracker for one of the dectors for the future circular collider.
+            Track reconstruction at the future collider will be extrodainarily difficult, given the intense pileup conditions, and yet tracking information will be required at the trigger level in order to deail with the pileup conditions. A triplet of tracking layers is proposed, which has the potential to reconstruct tracks a the trigger level and help aleviate some problems with the intense pileup conditions. 
+           
+            <br><br>
+            FCC Collaboration<br>
+            <i>CERN-ACC-2018-0046</i><br>
+            [<a href="https://cds.cern.ch/record/2645273" target="_blank">Paper</a>]
+            <p></p>
+            <br>
+
+
+            <!-- 2017 Multijet paper -->
+            <p id=Fawcett2017Multijets"></p>
+            <h4>
+              Search for new phenomena with large jet multiplicities and missing transverse momentum using large-radius jets and flavour-tagging at ATLAS in 13 TeV pp collisions
+              <a href=https://link.springer.com/article/10.1007%2FJHEP12%282017%29034"><span class="image right"><img src="images/link-to-here.png" title="Link to this paper" alt="Link to this paper" style="max-width: 15px"></span></a>
+            </h4>
+            <a href="https://link.springer.com/article/10.1007%2FJHEP12%282017%29034" target="_blank">
+              <span class="image left">
+                <img src="images/multijet_event_display.png" title="Many jet search" style="max-width: 160px">
+              </span>
+            </a>
+            A search for new physics with signal regions containing as many as at least 11 high momentum jets, using 36.1/fb of data collected by the ATLAS detector from 2015--2017.
+            This is the most sophisitcated search for supersymmetry in the multijet series.
+            <br><br>
+            ATLAS Collaboration<br>
+            <i>JHEP 12 (2017) 034</i><br>
+            [<a href="https://link.springer.com/article/10.1007%2FJHEP12%282017%29034" target="_blank">Paper</a>]
+            <p></p>
+            <br>
+
+            <!-- 2015 Multijet paper -->
+            <p id="Fawcett2016Multijets"></p>
+            <h4>
+              Search for new phenomena in final states with large jet multiplicities and missing transverse momentum with ATLAS using sqrt(s)=13 TeV proton–proton collisions
+              <a href="http://www.sciencedirect.com/science/article/pii/S0370269316300752"><span class="image right"><img src="images/link-to-here.png" title="Link to this paper" alt="Link to this paper" style="max-width: 15px"></span></a>
+            </h4>
+            <a href="http://www.sciencedirect.com/science/article/pii/S0370269316300752" target="_blank">
+              <span class="image left">
+                <img src="images/higgs_decay.jpeg" title="Multijet search" alt="Multijet search" style="max-width: 160px">
+              </span>
+            </a>
+            A search for new phenomena in events with high jet multiplicity and missing transverse momentum with 3.2/fb of data collected by the ATLAS detector in 2015. This was the first search for Supersymmetry to be published with 13 TeV data from the LHC. 
+            <br><br>
+            ATLAS Collaboration<br>
+            <i>Phys. Lett. B. 757 (2016) 334</i><br>
+            [<a href="http://www.sciencedirect.com/science/article/pii/S0370269316300752" target="_blank">Paper</a>]
+            <p></p>
+            <br>
+
+
+            <!-- pMSSM paper -->
+            <p id="Fawcett2015pMSSM"></p>
+            <h4>
+              Summary of the ATLAS experiment’s sensitivity to supersymmetry after LHC Run 1 — interpreted in the phenomenological MSSM
+              <a href="http://link.springer.com/article/10.1007%2FJHEP10%282015%29134"><span class="image right"><img src="images/link-to-here.png" title="Link to this paper" alt="Link to this paper" style="max-width: 15px"></span></a>
+            </h4>
+            <a href="http://link.springer.com/article/10.1007%2FJHEP10%282015%29134" target="_blank">
+              <span class="image left">
+                <img src="images/mc-escher-waterfall.jpeg" title="pMSSM study" alt="pMSSM study" style="max-width: 160px">
+              </span>
+            </a>
+            A combination of 22 Run-1 searches for new physics, providing the most comprehensive summary of searches for Supersymmetry. The results were interpreted in the 19-parameter ``phenomenological MSSM'', and the paper was the first of it’s kind from an experimental collaboration. 
+            <li> Featured in the <a href="http://cerncourier.com/cws/article/cern/62857">CERN courier</a> and on the <a href="http://resonaances.blogspot.co.uk/2015/08/weekend-plot-susy-limits-rehashed.html">Resonaances</a> blog </li>
+            <li>Selected as an Oxford Physics <a href="https://www2.physics.ox.ac.uk/research/atlas/highlights/oxford-team-puts-supersymmetry-to-the-test">highlight</a>, and an ATLAS collaboration <a href="http://atlas.cern/updates/physics-briefing/devouring-dark-matter-theories">highlight</a> </li>
+            <li>The results were used for several spin-off publications: 
+            <a href="https://arxiv.org/abs/1605.09502">1605.09502</a>, 
+            <a href="https://arxiv.org/abs/1605.02797">1605.02797</a>
+            <a href="https://arxiv.org/abs/1604.02959">1604.02959</a>, 
+            </li>
+            <!--<li>See also this <a href="https://www.hep.phy.cam.ac.uk/~wfawcett/pmssm.html">parallel coordinates</a> plot I made for fun, as a new way to interpret the results </li>-->
+            <li>See also this <a href="https://www.hep.phy.cam.ac.uk/~wfawcett/new_index.html">parallel coordinates2</a> plot I made for fun, as a new way to interpret the results </li>
+            <br>
+            ATLAS Collaboration<br>
+            <i>JHEP 10 (2015) 134</i><br>
+            [<a href="http://link.springer.com/article/10.1007%2FJHEP10%282015%29134" target="_blank">Paper</a>]
+            <p></p>
+            <br>
+
+            <!-- Multijets CONF -->
+            <p id="Fawcett2016MultijetsCONF"></p>
+            <h4>
+                Pursuit of new phenomena in final states with high jet multiplicity, high jet masses and missing transverse momentum with ATLAS at sqrt(s)=13 TeV
+              <a href="https://cds.cern.ch/record/2212161"><span class="image right"><img src="images/link-to-here.png" title="Link to this paper" alt="Link to this paper" style="max-width: 15px"></span></a>
+            </h4>
+            <a href="https://cds.cern.ch/record/2212161" target="_blank">
+              <span class="image left">
+                <img src="images/top_4jet.jpeg" title="Multijet CONF" alt="Multijet CONF" style="max-width: 160px">
+              </span>
+            </a>
+            An update of the above search for new physics in evets with high jet multiplicity with 18.2\fb of data. This time, jet substructure techniques were used to enhance the sensitivity of the search. 
+            <br><br>
+            ATLAS Collaboration<br>
+            ATLAS-CONF-2016-095 ,Geneva, CERN<br>
+            [<a href="https://cds.cern.ch/record/2212161" target="_blank">Note</a>]
+            <p></p>
+            <br>
+
+
+          </div>
+        </section>
+
+
+			 <!-- Three, CV -->
+        <section id="resume" class="wrapper style3 special">
+          <div class="container">
+            <header class="major">
+              <h2>Want more?</h2>
+              <p>Find me at any of the links below. </p>
+              <!--<p> <a href="WillFawcett_May17.pdf" target="_blank">Here</a> is a copy of my CV and <a href="publicationList.pdf" target="_blank">Publication List</a>. </p>-->
+            </header>
+          </div>
+        </section>
+
+
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					<ul class="icons">
+            <!--<li><a href="#" class="icon fa-twitter"></a></li>-->
+            <!--<li><a href="#" class="icon fa-instagram"></a></li>-->
+            <li><a href="mailto:willfaw@gmail.com" class="icon fa-mail-reply"></a></li>
+            <li><a href="https://www.linkedin.com/in/william-fawcett" class="icon fa-linkedin"></a></li>
+            <li><a href="https://github.com/will-fawcett" class="icon fa-github"></a></li>
+            <li><a href="https://www.facebook.com/wfawcett1" class="icon fa-facebook"></a></li>
+
+					</ul>
+					<ul class="copyright">
+						<li>Copyright &copy; William Fawcett</li>
+            <li> HTML5</li>
+            <!--<li>Images: <a href="http://unsplash.com">Unsplash</a></li>-->
+						<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
+
+
+
