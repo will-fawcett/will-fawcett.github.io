@@ -1,0 +1,214 @@
+
+<html>
+	<head>
+		<title>William Fawcett's Blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+	</head>
+	<body>
+
+
+		<!-- Main -->
+			<section id="main" class="wrapper">
+				<div class="container">
+					<header class="major special">
+						<h2>Compilers and linkers</h2>
+						<p>Building an executable: compiling and linking</p>
+					</header>
+
+          <!--<section>-->
+          <!--<h3>Compilers and linkers</h3>-->
+          <!--<h4>Buiding an executable, compiling and linking</h4>-->
+          <!--<p>2019-04-05-->
+          <!--</p>-->
+          <hr />
+
+
+<p>Here is a collection of my recent learnings on how a to compile c++ code and then link it together, as well as creating a library. I'm writing this mainly to consolidate my own knowledge of this subject, and have a record for the future. 
+
+In creating an executable there are actually (at least) two steps: compiling and linking. In many cases, compiling and linking can carried out in a single step and so one can easily be fooled into thinking the <i>are</i> the same step, but in reality one of these has been hidden from you. This can then lead to confusion when you want to try to create a library, and link that separately.
+</p>
+
+<h3> Compiling (but not linking) </h3>
+<p>
+
+If you code is simple enough, one would be able to do the following:
+<pre><code>g++ -o program_name.exe simple_main.cpp</code></pre>
+where <em>simple_main.cpp</em> would be a very simple program, perhaps not including any headers. In this case both compiling and linking are done in a single step.
+
+For more complex programs, where you have to include multiple libraries, or even to create your own library which you then use you may need, or want to, perform the compilation and linking separately.
+
+As a simple example, let's say we have three pieces of code: 
+<pre><code>main.cpp
+include/MyObj.h
+src/MyObj.cpp
+</code></pre>
+Note the code for these three files are included at the bottom of this page. We want to compile and link these together to produce a single executable. Note that the header file need only contain function (or class) declarations, with the definitions in the corresponding cpp file.
+
+To compile <i>only</i> (and not link) use <em>g++ -c</em>. We could try just including the path to the cpp file as follows:
+<pre><code>g++ -c ../src/MyObj.cpp -o MyObj.o</code></pre>
+But this results in an error:
+<pre><code>src/MyObj.cpp:2:10: fatal error: 'MyObj.h' file not found
+#include "MyObj.h"
+</code></pre>
+
+We need to tell <em>g++</em> where to look for the "#include", how does the compiler know where to look for this header file? <em>g++ --help</em> reveals
+<pre><code> -I &lt;dir&gt;                Add directory to include search path </code></pre>
+So we need to add the directory path to the header file so it can be found by the "#include" statement
+<pre><code>g++ -c src/MyObj.cpp -o MyObj.o -I include/
+</code></pre>
+
+This successfully creates the <em>MyObj.o</em> file. This is the first "compilation unit", and we can create many such object files and then <i>link</i> them together with the linker. Note that the linker itself doesn't know anything about programming languages or care about them (at least in principle), and one could link together the <em>.o</em> files compiled from different languages. 
+
+We may also inspect the <em>MyObj.o</em> file with the <em>nm</em> command, which displays the "symbol table".  The symbol table contains several main blocks, one of these has the symbols that are defined, and another that has the symbols that are undefined, the other blocks perform various other functions, including some lookup table that allows for faster finding of these symbols. The "defined" symbols are those that correspond to function, or pieces of code that were actually defined in the <em>MyObj*</em> files, whereas "undefined" symbols could refer to functions that are defined in other pieces of code. 
+In this example there are only defined symbols, and using <em>nm</em> yields:
+<pre><code>$ nm MyObj.o
+0000000000000000 T __ZN5MyObj3sumEv
+</code></pre>
+which is a but cryptic, but is language independent and can be understood by the linker.  This can be decoded by passing  <em>-C</em> to <em>nm</em>:
+<pre><code>$ nm -C MyObj.o
+0000000000000000 T MyObj::sum()
+</code></pre>
+and we see we have the original <em>sum</em> function. The <em>T</em> here indicates that this is a defined symbol. 
+
+Now let's try to compile the <em>main.cpp</em> file. This uses the <em>MyObj</em> class, as well as a header from an external library, <em>TH1D.h</em>. Trying to compile main on it's own won't work:
+<pre><code>$ g++ -c main.cpp -o main.o
+main.cpp:4:10: fatal error: 'TH1D.h' file not found
+#include "TH1D.h"
+</code></pre>
+Again, this is because we need to tell <em>g++</em> where to find the <em>TH1D.h</em> file. Note that <em>g++</em> didn't complain about trying to find <em>#include "include/MyObj.h"</em> as the path to that file <i>happens</i> to be <em>include/MyObj.h</em> (if we had moved <em>main.cpp</em> somewhere else, we would have had to include the <em>-I</em> flag to the <em>MyObj.h</em> as well). Normally, to get the <em>TH1D.h</em> we would simply add the <em>-I</em> with the path to the header, like this:
+ <pre><code> g++ -c main.cpp -o main.o -I/Users/wfawcett/root/build/include
+ </code></pre>
+ however, this throws a bunch of errors, since <em>TH1D.h</em> is part of ROOT, and that needs some extra compilation commands. (If you are readning this and want to install ROOT, see [here](https://root.cern.ch/building-root).) These extra commands can be passed using the <em>root-config --cflags</em> command as follows:
+ <pre><code> g++ -c main.cpp -o main.o <em>root-config --cflags</em>
+ </code></pre>
+ <em>root-config --cflags</em> actually returns the following (for me):
+ <pre><code>-pthread -stdlib=libc++ -std=c++11 -m64 -I/Users/wfawcett/root/build/include</code></pre>
+ and we see the relevant <em>-I</em> path, as well as some other relevant flags needed for ROOT. With the above <em>g++</em> command, <em>main.cpp</em> compiles and we are left with <em>main.o</em>, which is what we wanted. <em>nm -C main.o</em> now reveals all the symbols inside the compiled file. 
+
+
+
+ </p>
+
+
+<h3> Making a program: the linker </h3>
+<p>
+We have now created two _compilation units_, <em>main.o</em> and <em>MyObj.o</em>, two binary files that can be understood by your computer, but we haven't yet made a program that we can actually run! To do this we need to use the _linker_. The linker command is <em>ld</em> (now <em>LD_LIBRARY_PATH</em> makes sense...) . Naively, we might expect the following to work:
+<pre><code>$ ld -o prog.exe main.o MyObj.o
+</pre></code>
+but, this throws a large number of warnings. Importantly, these warnings start with <em>Undefined symbols for architecture x86_64:</em>, which means this is a linker problem (you may see this warning when you try to compile and link something at the same time). Remember that the linker doesn't know anything about c++. In our main.cpp, we used the library <em>#include <iostream></em> , but we haven't told our code anything about where this library might be. So, let's try to add the c++ libraries. On my mac, these libraries happen to be located here <em>/usr/lib/libc++.dylib</em> (although you don't need to know the path). We can pass this library to <em>ld</em> by adding the <em>-lc++</em> flag. This is a convention for adding libraries that can work across different machines, in this specific case, the <em>-l</em> is converted into <em>lib</em>.  However, running
+<pre><code>ld -o prog.exe main.o MyObj.o -lc++</pre></code> 
+still isn't enough as we need the remainder of the ROOT libraries. As an aside, one could find out what these are by using <em>nm</em> to search through all libraries on your machine and then match the symbol to what symbols are missing (a good approach if you don't know what libraries you might need), but the ROOT software provides a function to tell you what these libs should be: 
+<pre><code>$ root-config --libs
+-L/Users/wfawcett/root/build/lib -lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lROOTVecOps -lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lMultiProc -lROOTDataFrame -lpthread -stdlib=libc++ -lm -ldl
+</pre></code> This command _almost_ tells you what you need to append to your <em>ld</em> command, however the ROOT developers have been a little naughty and assumed that nobody would ever use the linker step on it's own (perhaps fair) and provided <em>-stdlib=libc++</em> which is actually something one wold pass to <em>g++</em> which would then pass <em>libc++</em> to <em>ld</em>.  What we actually want to pass is <em>-lc++</em>, which we already have. One can add all of these ROOT libraries as follows:
+<pre><code>ld -o prog.exe main.o MyObj.o -lstdc++ `root-config --libs | sed 's/.stdlib=lib.../ /g' `  -lc++
+</pre></code>
+(where I have included <em>-lc++</em> again for clarity, included the <em>-lstdc++</em> library, and used <em>sed</em> to remove the naughty <em>-stdlib=lib</em> from the output of <em>`root-config --libs`</em>). This command is what <i>finally</i> produces the output executable, <em>prog.exe</em> that can be run from the command line!
+
+</p>
+
+ 
+<h3> Making a library </h3>
+<p>
+A library is a collection of compiled objects that are used together. Making a library is essentially sticking together a bunch of compiled object files into one. One  benefit of a library is a potential performance enhancement (as the ''symbol table'' is now one large table that can reference everything inside of it, and can itself be optimised). Another benefit is if you want to "ship" a bunch of code, instead of having to deal with a lot of <em>.o</em> files, you only need one library. 
+
+There are several types of library; including static, dynamic and interface. Here we will only deal with static libraries. 
+
+We can create a static library with the archive command, <em>ar</em> (note the similarity with the tape archive command <em>tar</em>)
+<pre><code>ar -rc libwill.a MyObj.o
+</pre></code>
+In this example, we only have <i>one</i> object file, however we could have many! The output library <em>libwill.a</em> is similar to the original <em>.o</em> file, and can be inspected for symbols in the same way with the <em>nm</em> command:
+<pre><code>$ nm -C libwill.a
+
+libwill.a(MyObj.o):
+0000000000000000 T MyObj::sum()
+</pre></code>
+ If more object files had been included, more symbols would appear. 
+
+ Finally, to link this and produce an executable I can <i>almost</i> do the following:
+<pre><code>$ ld -o prog.exe main.o -lwill -lstdc++ `root-config --libs | sed 's/.stdlib=lib.../ /g' `  -lc++
+ld: library not found for -lwill
+</pre></code>
+However, the library <em>libwill.a</em> isn't found. We need to tell the linker where to look for this library, to do this we add the <em>-L</em> flag followed by the path to the library. In this case the library is in the current directory, so we need only add <em>-L.</em> 
+
+Finally, we have:
+<pre><code>$ ld -o prog.exe main.o -lwill -lstdc++ `root-config --libs | sed 's/.stdlib=lib.../ /g' `  -lc++  -L.
+</pre></code>
+Which produces the executable <em>prog.exe</em>. 
+</p>
+
+<h3> Code examples </h3>
+<p>
+<em>main.cpp</em>
+<pre><code>#include <iostream>
+#include "include/MyObj.h"
+#include "TH1D.h"
+
+int main(){
+  MyObj obj1(5, 6);
+
+  std::cout << "hello world!" << std::endl;
+  std::cout << "sum: " << obj1.sum() << std::endl;
+
+  TH1D* hist = new TH1D("hist", "hist", 100, 0, 100);
+  std::cout << hist->GetName() << std::endl;
+}
+</pre></code>
+
+<em>src/MyObj.cpp</em>
+<pre><code>#include "MyObj.h"
+
+double MyObj::sum(){
+  return x+y;
+}
+</pre></code>
+
+
+
+
+<em>include/MyObj.h</em>
+<pre><code>#ifndef MYOBJ_H
+#define MYOBJ_H
+
+class MyObj{
+  private:
+    double x, y;
+
+  public:
+    MyObj(double xin, double yin) : x(xin), y(yin) {}
+    double sum();
+};
+
+#endif // MYOBJ_H
+</pre></code>
+
+</p>
+				</div>
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					<ul class="icons">
+						<li><a href="#" class="icon fa-facebook"></a></li>
+						<li><a href="#" class="icon fa-twitter"></a></li>
+						<li><a href="#" class="icon fa-instagram"></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled</li>
+						<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
