@@ -65,3 +65,19 @@ Adding columns based on conditionals
 https://www.dataquest.io/blog/tutorial-add-column-pandas-dataframe-based-on-if-else-condition/
 
 df['any_speeding'] = np.where(df['speeding_violations'] > 0, True, False)
+
+
+# Type manipulation
+
+# Convert single column to int dtype.
+df['Fee'] = df['Fee'].astype('int')
+
+# Standard scalar for dataframe 
+from sklearn_pandas import DataFrameMapper
+
+mapper = DataFrameMapper([(df.columns, StandardScaler())])
+scaled_features = mapper.fit_transform(df.copy(), 4)
+scaled_features_df = pd.DataFrame(scaled_features, index=df.index, columns=df.columns)
+
+# Concatenation
+
