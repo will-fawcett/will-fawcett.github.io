@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Talks &amp; Conferences — William Fawcett</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --color-bg: #ffffff;
+      --color-bg-alt: #f8f9fa;
+      --color-text: #1a1a2e;
+      --color-text-muted: #666666;
+      --color-accent: #0066cc;
+      --color-accent-hover: #004fa3;
+      --color-border: #e5e7eb;
+      --max-width: 800px;
+      --header-height: 60px;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--color-accent);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--color-accent-hover);
+    }
+
+    /* ---- Header / Nav ---- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .site-header.scrolled {
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .site-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--color-text);
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: var(--color-text);
+      font-size: 1.25rem;
+    }
+
+    /* ---- Main Content ---- */
+    .main-content {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .page-header {
+      padding: 2.5rem 0 1rem;
+    }
+
+    .page-header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .page-header p {
+      color: var(--color-text-muted);
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    /* ---- Talks ---- */
+    .talks-year {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    .talks-year:first-of-type {
+      margin-top: 0.5rem;
+    }
+
+    .talks-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .talks-list li {
+      padding: 0.5rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+      font-size: 0.95rem;
+      color: var(--color-text);
+    }
+
+    .talks-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.95rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-accent);
+    }
+
+    .talks-list li a {
+      margin-left: 0.35rem;
+      font-size: 0.8rem;
+    }
+
+    .cern-login {
+      font-size: 0.75rem;
+      color: #999;
+      font-style: italic;
+      margin-left: 0.25rem;
+    }
+
+    .talk-type {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.15rem 0.45rem;
+      border-radius: 3px;
+      margin-right: 0.4rem;
+      vertical-align: middle;
+    }
+
+    .talk-type.talk {
+      background: #e8f0fe;
+      color: #1a56db;
+    }
+
+    .talk-type.poster {
+      background: #fef3e2;
+      color: #b45309;
+    }
+
+    /* ---- Footer ---- */
+    .site-footer {
+      border-top: 1px solid var(--color-border);
+      margin-top: 3rem;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-left {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-text);
+    }
+
+    .footer-left .copyright {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .footer-social a {
+      color: var(--color-text-muted);
+      font-size: 1.1rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-social a:hover {
+      color: var(--color-accent);
+    }
+
+    .footer-social .orcid-icon:hover svg path {
+      fill: var(--color-accent);
+    }
+
+    .footer-social .orcid-icon svg path {
+      transition: fill 0.2s ease;
+    }
+
+    /* ---- Mobile ---- */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        right: 0;
+        background: var(--color-bg);
+        flex-direction: column;
+        padding: 1rem 1.5rem;
+        gap: 0;
+        border-bottom: 1px solid var(--color-border);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links li {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .nav-links li:last-child {
+        border-bottom: none;
+      }
+
+      .nav-links a {
+        font-size: 1rem;
+      }
+
+      .page-header h1 {
+        font-size: 1.65rem;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        font-size: 15px;
+      }
+
+      .page-header h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="index.html" class="site-title">William Fawcett</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">About</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="talks.html" class="active">Talks</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <div class="page-header">
+      <h1>Talks &amp; Conferences</h1>
+      <p>Selected talks and poster presentations at conferences and workshops.</p>
+    </div>
+
+    <h2 class="talks-year">2025</h2>
+    <ul class="talks-list">
+      <li><span class="talk-type talk">Talk</span>"Machine Learning at the Large Hadron Collider" &mdash; ESA Phi-lab Collaborative Innovation Network <a href="https://cin.philab.esa.int/databases/news-db/talk-machine-learning-at-the-large-hadron-collider" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a></li>
+    </ul>
+
+    <h2 class="talks-year">2023</h2>
+    <ul class="talks-list">
+      <li><span class="talk-type talk">Talk</span>"A Scientific Cloud Computing Platform for Ingestion and Processing of SDO Data" &mdash; DASH, Johns Hopkins University Applied Physics Laboratory <a href="https://dash.heliophysics.net/2023/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a></li>
+      <!-- <li><span class="talk-type talk">Talk</span>Sheffield ITK meeting</li> -->
+    </ul>
+
+    <h2 class="talks-year">2022</h2>
+    <ul class="talks-list">
+      <li><span class="talk-type talk">Talk</span>"Searches for exotic decays of the Higgs boson as a window to the dark sector with the ATLAS detector" &mdash; CIPANP, Florida, USA <a href="https://agenda.hep.wisc.edu/event/1644/contributions/25838/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a></li>
+      <li><span class="talk-type talk">Talk</span>"Recent searches for new phenomena with the ATLAS detector" &mdash; DIS, Santiago de Compostela, Spain <a href="https://indico.cern.ch/event/1072533/contributions/4824046/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a></li>
+    </ul>
+
+    <h2 class="talks-year">2021</h2>
+    <ul class="talks-list">
+      <li><span class="talk-type talk">Talk</span>"Searches for supersymmetry with the ATLAS detector" &mdash; WIN2021, U Minnesota <a href="https://indico.fnal.gov/event/44492/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a></li>
+      <li><span class="talk-type talk">Talk</span>"Machine Learning at the LHC" &mdash; Ridge-i, Tokyo 
+    </ul>
+
+    <h2 class="talks-year">2019</h2>
+    <ul class="talks-list">
+      <li><span class="talk-type talk">Talk</span>"The Supersymmetry Working Group Report" &mdash; ATLAS Week, Berlin <a href="https://indico.cern.ch/event/805735/timetable/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a> <span class="cern-login">(CERN login required)</span></li>
+      <li><span class="talk-type talk">Talk</span>"Monte Carlo Production" &mdash; ATLAS Supersymmetry Workshop, Lecce, Italy <a href="https://indico.cern.ch/event/801517/timetable/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a> <span class="cern-login">(CERN login required)</span></li>
+      <li><span class="talk-type talk">Talk</span>"The Lepton charge-flavour asymmetry search" &mdash; ATLAS Exotics Workshop, Naples, Italy <a href="https://indico.cern.ch/event/801402/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a> <span class="cern-login">(CERN login required)</span></li>
+      <li><span class="talk-type talk">Talk</span>"A particle physicist's experience at the NASA Frontier Development Lab" &mdash; Oxford University HEP group
+    </ul>
+
+    <h2 class="talks-year">2018</h2>
+    <ul class="talks-list">
+      <li><span class="talk-type talk">Talk</span>"A particle physicist's experience at the NASA Frontier Development Lab" &mdash; Cambridge University HEP seminar <a href="https://talks.cam.ac.uk/talk/index/110674" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a></li>
+      <li><span class="talk-type talk">Talk</span>"Are we alone? How NASA Frontier Development Lab scientists use AI to find evidence of
+life" &mdash; TensorFlow London</li>
+      <li><span class="talk-type talk">Talk</span>"Searching for Supersymmetry at ATLAS" &mdash; Mitchell 2018, Texas A&amp;M <a href="https://indico.global/event/851/contributions/25017/attachments/12397/18406/searchingForSUSY.pdf" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a></li>
+      <li><span class="talk-type talk">Talk</span>"A self-seeded track trigger for the FCC" &mdash; FCC Week 2018, Amsterdam <a href="https://indico.cern.ch/event/656491/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a></li>
+      <li><span class="talk-type talk">Talk</span>"Exploring the Universality of Life" &mdash; Intel HQ, California (NASA FDL) <a href="https://www.youtube.com/watch?v=18nokZa_SEU" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a></li>
+    </ul>
+
+    <h2 class="talks-year">2016</h2>
+    <ul class="talks-list">
+      <li><span class="talk-type talk">Talk</span>"Searches for strongly produced supersymmetry" &mdash; ATLAS UK, Sheffield <a href="https://indico.cern.ch/event/406235/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a> <span class="cern-login">(CERN login required)</span></li>
+      <li><span class="talk-type poster">Poster</span>"Searches for strongly produced supersymmetry" &mdash; ATLAS UK, Sheffield <a href="https://indico.cern.ch/event/406235/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a> <span class="cern-login">(CERN login required)</span></li>
+      <li><span class="talk-type talk">Talk</span>"Pursuit of new physics in events with many jets at ATLAS" &mdash; IOP HEPP, Brighton<a href="https://indico.global/event/3717/contributions/35668/attachments/18425/30148/persuit_of_SUSY_IOP.pdf" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a></li>
+      <li><span class="talk-type talk">Talk</span>"Summary of SUSY constraints from ATLAS using the pMSSM" &mdash; LHCP, Lund, Sweden <a href="http://lhcp2016.hep.lu.se/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a></li>
+    </ul>
+
+    <h2 class="talks-year">2015</h2>
+    <ul class="talks-list">
+      <li><span class="talk-type poster">Poster</span>"Summary of SUSY constraints from ATLAS using the general pMSSM" &mdash; Lepton Photon, Ljubljana <a href="https://indico.cern.ch/event/325831/contributions/757798/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a></li>
+      <!-- <li><span class="talk-type poster">Poster</span>ATLAS UK, Brighton <a href="https://indico.cern.ch/event/335868/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a></li> -->
+    </ul>
+
+    <!-- <h2 class="talks-year">2014</h2>
+    <ul class="talks-list">
+      <li><span class="talk-type poster">Poster</span>RAL school</li>
+    </ul>
+
+    <h2 class="talks-year">2013</h2>
+    <ul class="talks-list">
+      <li><span class="talk-type poster">Poster</span>CHARM (Invited as MPhys student)</li>
+    </ul> -->
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div>William Fawcett</div>
+        <div class="copyright">&copy; 2026 William Fawcett</div>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/william-fawcett" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/will-fawcett" target="_blank" rel="noopener" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://orcid.org/0000-0003-2596-8264" target="_blank" rel="noopener" aria-label="ORCID" class="orcid-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="1.1em" height="1.1em">
+            <path fill="#666666" d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zM86.3 186.2H70.9V79.1h15.4v107.1zM78.6 69.4c-5.5 0-9.5-4.3-9.5-9.5s4-9.5 9.5-9.5c5.5 0 9.5 4.3 9.5 9.5s-4 9.5-9.5 9.5zM190.3 186.2h-15.4v-55.7c0-15.4-5.8-23.2-17.5-23.2-14.3 0-21.3 9.6-21.3 28.6v50.3h-15.4V79.1H136v14.3c6.3-10.7 16.5-16.3 28.5-16.3 20.8 0 25.8 14.2 25.8 35.6v73.5z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      const icon = hamburger.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        const icon = hamburger.querySelector('i');
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-times');
+      });
+    });
+
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 10);
+    });
+  </script>
+
+</body>
+</html>
