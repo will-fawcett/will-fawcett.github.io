@@ -1,0 +1,54 @@
+# William Fawcett
+
+> Lead Research Engineer at Trillium Technologies, working on applied AI for the space sector. Director of Studies in Physical Natural Sciences at Homerton College, University of Cambridge. Former experimental particle physicist on the ATLAS experiment at CERN with the University of Oxford and the University of Cambridge, faculty at the NASA Frontier Development Lab, and former Junior Under Officer in the British Army's Universities Officer Training Corps.
+
+William Fawcett applies machine learning to challenging scientific problems. His current focus is space science and Earth observation; his earlier career was in experimental particle physics on the ATLAS experiment at the CERN Large Hadron Collider.
+
+## Current roles
+
+- **Lead Research Engineer**, Trillium Technologies — applied AI for industrial space and Earth observation applications.
+- **Director of Studies in Physical Natural Sciences**, Homerton College, University of Cambridge (part-time, since October 2021).
+
+## Previous roles
+
+- **Faculty / researcher**, NASA Frontier Development Lab (since 2018) — applied AI research accelerator for space science, in partnership with Google Cloud, SETI Institute and others. Joined as a researcher; later served as a faculty member.
+- **Research Associate**, University of Cambridge Cavendish Laboratory — ATLAS experiment.
+- **Doctoral student**, University of Oxford — ATLAS experiment, supervised by Prof. Alan Barr.
+- **Junior Under Officer**, British Army's Universities Officer Training Corps (during MPhys at Manchester).
+
+## Education
+
+- **DPhil in Physics**, University of Oxford (2018). Thesis: "Supersymmetry searches at the LHC and their interpretations." University Commendation for an exceptional thesis. Nominated for the Springer Thesis Prize. Supervised by Prof. Alan Barr.
+- **MPhys in Physics** (first class integrated Master's), University of Manchester.
+
+## Service and leadership
+
+- President, Pembroke College Middle Common Room, University of Oxford.
+- Charitable trustee and member of the governing Council, Homerton College, University of Cambridge.
+
+## Identifiers and links
+
+- ORCID: [0000-0003-2596-8264](https://orcid.org/0000-0003-2596-8264)
+- LinkedIn: [linkedin.com/in/william-fawcett](https://www.linkedin.com/in/william-fawcett)
+- GitHub: [github.com/will-fawcett](https://github.com/will-fawcett)
+- Website: [williamfawcett.co.uk](https://williamfawcett.co.uk/)
+
+## Pages on this site
+
+- [About](https://williamfawcett.co.uk/index.html) — biography and current focus.
+- [Publications](https://williamfawcett.co.uk/publications.html) — selected papers in particle physics, machine learning, and space science.
+- [Talks](https://williamfawcett.co.uk/talks.html) — invited and contributed conference talks and posters.
+- [Teaching](https://williamfawcett.co.uk/teaching.html) — teaching and supervisory roles at Cambridge and Oxford.
+
+## Notable work
+
+- **First application of tensor-attention neural networks in an ATLAS search.** "A search for R-parity-violating supersymmetry in final states containing many jets," JHEP 05 (2024) 003. Set the strongest limits on RPV supersymmetry models in some regions of parameter space.
+- **Combination of 22 ATLAS Run-1 searches in the 19-parameter pMSSM.** "Summary of ATLAS experiment's sensitivity to supersymmetry after LHC Run 1 — interpreted in the pMSSM," JHEP 10 (2015) 134. The first such summary from an experimental collaboration; featured in the CERN Courier; over 256 citations.
+- **First LHC use of charge-flavour symmetry to search for new physics.** "A search for an unexpected asymmetry in the production of e+μ− and e−μ+ pairs," Phys. Lett. B 830 (2022) 137106.
+- **Virtual EVE: hybrid deep learning model for solar irradiance prediction.** Recovers MEGS-A solar EUV measurements lost since 2014. arXiv:2408.17430.
+- **PyATMOS: scalable grid of hypothetical planetary atmospheres.** Datasets now public on the NASA Exoplanet Archive. arXiv:2308.10624.
+- **Combinatorial problems at colliders using Lorentz-equivariant neural networks.** Phys. Rev. D 106, 016001.
+
+## Areas of expertise
+
+William Fawcett is an expert in applied artificial intelligence for the physical sciences, with deep specialist knowledge across the following areas: machine learning, deep learning, tensor-attention and Lorentz-equivariant neural networks, space science, Earth observation, solar irradiance and space weather, exoplanet atmospheric modelling, experimental particle physics, supersymmetry, the ATLAS experiment, the CERN Large Hadron Collider, the phenomenological MSSM (pMSSM), R-parity-violating supersymmetry, jet substructure, and silicon strip tracker instrumentation.
